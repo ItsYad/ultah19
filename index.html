@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trivia Game: Kisah Cinta Kami</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #ffebcd;
+        text-align: center;
+        padding: 50px;
+      }
+      h1 {
+        color: #ff4500;
+      }
+      .question {
+        font-size: 1.5em;
+        margin: 20px 0;
+      }
+      .answer {
+        padding: 10px 20px;
+        margin: 5px;
+        cursor: pointer;
+        border: none;
+        background-color: #ff7f50;
+        color: white;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+      .answer:hover {
+        background-color: #ff4500;
+      }
+      .score {
+        margin: 20px 0;
+        font-size: 1.2em;
+      }
+      .result {
+        font-size: 1.4em;
+        margin: 30px 0;
+      }
+      .birthday-message {
+        font-size: 1.6em;
+        color: #ff4500;
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Trivia Game: Kisah Cinta Kami</h1>
+    <div id="quiz-container">
+      <div id="question" class="question"></div>
+      <div id="answers"></div>
+      <div class="score">Skor: <span id="score">0</span></div>
+    </div>
+    <div id="result" class="result"></div>
+    <div id="birthday-message" class="birthday-message"></div>
+
+    <script>
+      const questions = [
+        {
+          question: "Di mana kita pertama kali bertemu?",
+          answers: ["Kelas", "Sekolah", "Laboratorium", "Kantin"],
+          correct: 0,
+        },
+        {
+          question: "Apa warna favoritmu?",
+          answers: ["Merah", "Biru", "Hijau", "Kuning"],
+          correct: 1,
+        },
+        {
+          question: "Makanan apa yang paling kita sukai?",
+          answers: ["Bakso", "Sushi", "Penyetan", "Nasi Padang"],
+          correct: 3,
+        },
+        {
+          question: "Apa film pertama yang kita tonton bersama?",
+          answers: ["Disney", "Marvel", "Warner Bros", "Dreamworks"],
+          correct: 1,
+        },
+        {
+          question: "Hewan peliharaan apa yang kita inginkan?",
+          answers: ["Anjing", "Kucing", "Ikan", "Burung"],
+          correct: 1,
+        },
+        // Tambahkan lebih banyak pertanyaan di sini
+      ];
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+
+      function showQuestion() {
+        const questionElement = document.getElementById("question");
+        const answersElement = document.getElementById("answers");
+        const scoreElement = document.getElementById("score");
+        questionElement.innerText = questions[currentQuestionIndex].question;
+        answersElement.innerHTML = "";
+        questions[currentQuestionIndex].answers.forEach((answer, index) => {
+          const button = document.createElement("button");
+          button.innerText = answer;
+          button.className = "answer";
+          button.onclick = () => selectAnswer(index);
+          answersElement.appendChild(button);
+        });
+        scoreElement.innerText = score;
+      }
+
+      function selectAnswer(index) {
+        if (index === questions[currentQuestionIndex].correct) {
+          score++;
+          alert("Benar!");
+        } else {
+          alert("Salah!");
+        }
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+          showQuestion();
+        } else {
+          showResult();
+        }
+      }
+
+      function showResult() {
+        const quizContainer = document.getElementById("quiz-container");
+        const resultElement = document.getElementById("result");
+        const birthdayMessageElement =
+          document.getElementById("birthday-message");
+        quizContainer.style.display = "none";
+        resultElement.innerText = "Skor Akhir: " + score;
+        birthdayMessageElement.innerText =
+          "Selamat Ulang Tahun, Sayangkuu! Semoga di hari ulaang tahun ini menjadi hari yang penuh kebahagiaan dan cinta. Aku mencintaimu lebih dari kata-kata yang bisa diungkapkan aw aw aw. I Love You SAYANGKUUU 💖";
+      }
+
+      showQuestion();
+    </script>
+  </body>
+</html>
